@@ -1,7 +1,11 @@
 package com.phani.dog.di
 
+import android.app.Application
+import android.content.Context
 import com.phani.dog.data.remote.DogService
 import com.phani.dog.utils.Constants
+import com.phani.user.db.UserDao
+import com.phani.user.db.UserDb
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -40,10 +44,23 @@ object NetworkModule {
             .build()
     }
 
+
     @Singleton
     @Provides
     fun provideCurrencyService(retrofit: Retrofit): DogService =
         retrofit.create(DogService::class.java)
 
+
+    @Singleton
+    @Provides
+    fun getAppDatabase(context: Application): UserDb {
+        return UserDb.getUserDBInstance(context)
+    }
+
+    @Singleton
+    @Provides
+    fun getAppDao(userDb: UserDb): UserDao {
+        return userDb.getUserdao()
+    }
 
 }
