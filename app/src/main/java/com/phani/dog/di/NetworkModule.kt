@@ -51,16 +51,5 @@ object NetworkModule {
         retrofit.create(DogService::class.java)
 
 
-    @Singleton
-    @Provides
-    fun getAppDatabase(context: Application): UserDb {
-        return UserDb.getUserDBInstance(context)
-    }
-
-    @Singleton
-    @Provides
-    fun getAppDao(userDb: UserDb): UserDao {
-        return userDb.getUserdao()
-    }
 
 }

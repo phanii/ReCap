@@ -1,6 +1,7 @@
 package com.phani.user.viewmodel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.*
 import com.phani.user.model.User
 import com.phani.user.db.UserRepo
@@ -16,14 +17,11 @@ class UserViewModel @Inject constructor(
 ) :
     AndroidViewModel(applicationContext) {
 
-
     private val _response = MutableLiveData<Long>()
     val response: LiveData<Long> = _response
 
-    fun insertUser(user: User)
-    {
-        viewModelScope.launch (Dispatchers.IO){
-            userRepo.createUser(user)
-        }
-    }
+      suspend fun insertUser(user: User)=  userRepo.createUser(user)
+
+
+
 }
